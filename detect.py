@@ -1,4 +1,5 @@
 from datetime import date, datetime
+import json
 
 today = date.today()
 today = today.strftime("%b %d")
@@ -19,11 +20,21 @@ with open('whitelist.txt','r') as w, open('auth_filter.log','r') as f:
                 y = line.find(' port') 
 
                 if line[x+6:y] not in whitelist:
-                    blacklist.append(line[x+6:y]) 
+                    blacklist.append(line[x+6:y])
+                    #print(blacklist)
 
-blacklist = list(set(blacklist)) 
+                    json_string = json.dumps(blacklist)
+                    with open("./blacklist.txt", "w") as file:
+                        file.write(json_string)
 
-print ('whitelist :', whitelist)
-print ('blacklist :', blacklist)
+#blacklist = list(set(blacklist))
+
+#json_string = json.dumps(blacklist)
+#with open("./blacklist.txt", "w") as file:
+#    file.write(json_string)
+    
+#print(json_string)
+#print ('whitelist :', whitelist)
+#print ('blacklist :', blacklist)
 
 #print(date==today)
